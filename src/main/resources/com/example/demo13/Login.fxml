@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<GridPane fx:controller="com.example.demo13.LoginController"
-          xmlns:fx="http://javafx.com/fxml"
-          alignment="CENTER"
-          hgap="10" vgap="10"
-          style="-fx-padding: 25;">
+<VBox alignment="CENTER" spacing="20" stylesheets="@login.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.LoginController">
 
-    <Text text="Login" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 20px;"/>
-
-    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-    <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <VBox spacing="15" alignment="CENTER">
+        <TextField fx:id="usernameField" promptText="Your email..."/>
+        <PasswordField fx:id="passwordField" promptText="Password"/>
         <Button text="Login" onAction="#handleLogin"/>
-    </HBox>
+        <HBox spacing="10" alignment="CENTER">
 
-    <Label fx:id="loginStatusLabel" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-</GridPane>
+        </HBox>
+    </VBox>
+</VBox>

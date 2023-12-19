@@ -2,7 +2,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="adminPanel" spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.AdminController">
+<VBox fx:id="adminPanel" spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.AdminController" stylesheets="@style.css">
+    <ListView fx:id="usersListView" />
     <Label text="Admin Panel" style="-fx-font-size: 20px;" />
     <Button text="Add New Product" onAction="#handleAddNewProduct"/>
     <Button text="Update Product Price" onAction="#handleUpdateProductPrice"/>

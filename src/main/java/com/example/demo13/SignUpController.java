@@ -45,7 +45,7 @@ public class SignUpController {
         String user_name = usernameField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-        String accountType = accountTypeComboBox.getSelectionModel().getSelectedItem();
+        String accountType = accountTypeComboBox.getValue();
 
         if (!password.equals(confirmPassword)) {
             statusLabel.setText("Passwords do not match.");

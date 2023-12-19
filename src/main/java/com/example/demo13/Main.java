@@ -310,9 +310,10 @@ class DatabaseConnection implements IDataBaseConnection{
     // TODO: 15.12.2023  adding user to db
     @Override
     public void addUser(String name ,String password , String account_type) throws SQLException{
-        try (PreparedStatement statement = connection.prepareStatement("insert into users(user_name , password ) values(?,?,?)")){
+        try (PreparedStatement statement = connection.prepareStatement("insert into users(user_name , password  , account_type) values(?,?,?)")){
             statement.setString(1 , name);
             statement.setString(2 , password);
+            statement.setString(3 , account_type);
 //            statement.setString(3 , account_type);
             statement.executeUpdate();
         }

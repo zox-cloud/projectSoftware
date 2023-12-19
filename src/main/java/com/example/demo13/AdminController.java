@@ -1,13 +1,38 @@
 package com.example.demo13;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 public class AdminController {
+    public VBox adminPanel;
+    @FXML
+    private ListView<Client> usersListView;
 
     @FXML
     private StackPane contentArea;
+    @FXML
+    private void initialize() {
+        // Assuming your VBox or another parent element is accessible as 'adminPanel'
+        adminPanel.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    }
 
     public AdminController() {
         // Initialize any necessary components
@@ -28,9 +53,11 @@ public class AdminController {
         // Code to handle product deletion
     }
 
+  // This will display a list of usernames as strings
+
     @FXML
-    private void handleViewUsers() {
-        // Code to display a list of users
+    private void handleViewUsers() throws SQLException {
+
     }
 
     @FXML
@@ -39,9 +66,27 @@ public class AdminController {
     }
 
     @FXML
-    private void handleLogout() {
-        // Code to handle logout and return to the login screen
+    private void handleLogout(ActionEvent event) {
+        try {
+            // Load the login view FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Scene scene = new Scene(loader.load() , 400 , 400); // Update the path to your login FXML file
+
+            // Get the current window and set the scene to the login view
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();// signUpBox is the VBox id from your SignUp.fxml
+            stage.setScene(scene);
+
+            // Optional: Set the title of the window
+            stage.setTitle("Login");
+
+            // Show the new scene
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace(); // Log the exception, or show an error dialog
+        }
     }
+
 
     // Additional methods and logic as required
 }

@@ -1,0 +1,33 @@
+.root {
+    -fx-font-family: 'Arial';
+    -fx-padding: 20px;
+}
+
+.label-header {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2c3e50;
+}
+
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.list-view {
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: #bdc3c7;
+}
+
+#contentArea {
+    -fx-background-color: #bdc3c7;
+}
+
+#adminPanel {
+    -fx-background-color: #ecf0f1;
+}

@@ -148,7 +148,7 @@ public class Main{
         int categoryId = scanner.nextInt();
 
         try {
-            dbConnection.addProduct( id ,name, price, categoryId);
+            dbConnection.addProduct( id ,name, price);
             System.out.println("Product added successfully.");
         } catch (SQLException e) {
             System.err.println("Error adding product: " + e.getMessage());
@@ -270,7 +270,7 @@ public class Main{
 interface IDataBaseConnection{
     void addUser(String name , String  password , String account_type) throws SQLException;
     String checkUser(String name , String password) throws SQLException;
-    void addProduct(int product_id , String product_name, int price , int category_id) throws SQLException;
+    void addProduct(int product_id , String product_name, int price) throws SQLException;
     void updatePrice(int product_id , int new_price) throws  SQLException;
     void deleteProduct(int product_id) throws SQLException;
     List<Product>getProducts() throws SQLException;
@@ -341,13 +341,13 @@ class DatabaseConnection implements IDataBaseConnection{
 
     // TODO: 15.12.2023  admin here should add product
     @Override
-    public void addProduct(int product_id , String product_name , int price, int category_id) throws  SQLException{
-        String query = "insert into products(product_id , product_name , product_price , category_id) values(?, ?, ? ,? )";
+    public void addProduct(int product_id , String product_name , int price) throws  SQLException{
+        String query = "insert into products(product_id , product_name , product_price ) values(?, ?, ?  )";
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt( 1, product_id);
             statement.setString(2 , product_name);
             statement.setInt(3  , price);
-            statement.setInt(4 , category_id);
+
             statement.executeUpdate();
 
         }
@@ -466,8 +466,8 @@ class DataBaseConnectionProxy implements IDataBaseConnection{
     }
 
     @Override
-    public void addProduct(int product_id, String product_name, int price, int category_id) throws SQLException {
-        getRealConnnection().addProduct(product_id , product_name , price , category_id);
+    public void addProduct(int product_id, String product_name, int price) throws SQLException {
+        getRealConnnection().addProduct(product_id , product_name , price);
     }
 
     @Override
@@ -546,7 +546,7 @@ class Admin extends UserAccount{
 
     public void addProduct(int product_id , String product_name , int price , int category_id){
         try {
-            DatabaseConnection.getInstance().addProduct(product_id , product_name , price , category_id);
+            DatabaseConnection.getInstance().addProduct(product_id , product_name , price);
         } catch (SQLException e) {
             System.err.println("Error adding product " + e.getSQLState());
         }
@@ -712,15 +712,6 @@ class Basket {
     // Other methods and functionalities
 }
 
-class Olzhas{
-    String iamhere;
-
-}
-class alikhan{
-    String wearehere;
-    int a;
-    int b;
-}
 
 
 // TODO: 16.12.2023  в админ панель надо добавить список клиентов и товаров

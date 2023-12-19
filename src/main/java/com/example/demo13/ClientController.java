@@ -35,7 +35,7 @@ public class ClientController {
     private void handleViewProducts() {
         // Code to display the list of products
         ListView<Product> listView = new ListView<>();
-        // Fetch products from database and add to listView
+//         Fetch products from database and add to listView
         contentArea.getChildren().setAll(listView);
     }
 

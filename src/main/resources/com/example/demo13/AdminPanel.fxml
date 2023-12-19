@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:controller="com.example.demo13.AdminController" xmlns:fx="http://javafx.com/fxml" spacing="10" padding="10">
+    <HBox spacing="10">
+        <Button text="View Products" onAction="#viewProducts"/>
+        <Button text="View Clients" onAction="#viewClients"/>
+    </HBox>
+    <ListView fx:id="productsList" />
+    <ListView fx:id="clientsList" />
+</VBox>

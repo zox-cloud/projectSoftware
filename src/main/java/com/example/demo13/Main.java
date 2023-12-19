@@ -667,7 +667,7 @@ class Basket {
 
 class Olzhas{
     String iamhere;
-    int h;
+
 }
 
 

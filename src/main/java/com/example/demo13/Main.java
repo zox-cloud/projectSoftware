@@ -667,6 +667,7 @@ class Basket {
 
 class Olzhas{
     String iamhere;
+
 }
 class alikhan{
     String wearehere;

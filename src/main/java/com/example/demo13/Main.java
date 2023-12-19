@@ -668,6 +668,9 @@ class Basket {
 class Olzhas{
     String iamhere;
 }
+class alikhan{
+    String wearehere;
+}
 
 
 // TODO: 16.12.2023  в админ панель надо добавить список клиентов и товаров

@@ -14,8 +14,8 @@
       <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #dbb481;" stylesheets="@login.css">
       
           <VBox alignment="CENTER" spacing="15">
-              <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="125.0" promptText="user name" style="-fx-background-color: #3b332a;" />
-              <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="125.0" promptText="Password" style="-fx-background-color: #3b332a;" />
+              <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="125.0" promptText="user name" style="-fx-border-color: #3b332a;" />
+              <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="125.0" promptText="Password" style="-fx-border-color: #3b332a;" />
               <Button minHeight="-Infinity" onAction="#handleLogin" prefHeight="38.0" prefWidth="65.0" style="-fx-background-color: #3b332a;" text="Login">
                <font>
                   <Font size="9.0" />

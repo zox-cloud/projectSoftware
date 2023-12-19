@@ -52,6 +52,11 @@ public class AdminController {
 
         // Load products initially or when needed
         handleViewProducts();
+
+
+
+
+
     }
 
     public AdminController() {

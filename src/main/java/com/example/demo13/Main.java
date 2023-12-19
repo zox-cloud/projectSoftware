@@ -278,6 +278,9 @@ interface IDataBaseConnection{
     List<Client> getClients() throws SQLException;
 
 
+    Connection connection();
+
+    boolean checkUserExists(String username) throws SQLException;
 }
 // TODO: 15.12.2023 Single
 
@@ -299,7 +302,7 @@ class DatabaseConnection implements IDataBaseConnection{
         return instance;
     }
 
-    public Connection connection(){
+    public Connection getconnection(){
         return connection;
     }
 
@@ -419,6 +422,29 @@ class DatabaseConnection implements IDataBaseConnection{
         return clients;
     }
 
+    @Override
+    public Connection connection() {
+        return connection;
+    }
+
+    @Override
+
+    public boolean checkUserExists(String username) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users WHERE user_name = ?";
+         // Get the connection from the proxy
+            try (
+                PreparedStatement stmt = connection.prepareStatement(sql)
+            ) {
+            stmt.setString(1, username);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }
 
@@ -468,6 +494,25 @@ class DataBaseConnectionProxy implements IDataBaseConnection{
     public List<Client> getClients() throws SQLException {
         return getRealConnnection().getClients();
     }
+
+    @Override
+    public Connection connection() {
+        return connection();
+    }
+
+    @Override
+    public boolean checkUserExists(String username) throws SQLException {
+        return getRealConnnection().checkUserExists(username);
+    }
+
+    public Connection getConnection() throws SQLException {
+        // You would return the actual connection object from your connection class
+        // Ensure that you handle the SQLException in case the connection cannot be established
+        return getRealConnnection().connection();
+    }
+
+
+
 }
 
 

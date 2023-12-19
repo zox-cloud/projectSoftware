@@ -12,6 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SignUpController {
 
@@ -33,13 +37,12 @@ public class SignUpController {
     private IDataBaseConnection dbConnection;
 
     public SignUpController() {
-        // Initialize your database connection here
-        // Example: this.dbConnection = new DataBaseConnectionProxy();
+         this.dbConnection = new DataBaseConnectionProxy();
     }
 
     @FXML
     protected void handleRegisterAction(ActionEvent event) {
-        String username = usernameField.getText();
+        String user_name = usernameField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         String accountType = accountTypeComboBox.getSelectionModel().getSelectedItem();
@@ -49,12 +52,22 @@ public class SignUpController {
             return;
         }
 
-        if (username.isEmpty() || password.isEmpty() || accountType == null) {
+        if (user_name.isEmpty() || password.isEmpty() || accountType == null) {
             statusLabel.setText("Please fill in all fields.");
             return;
         }
 
         try {
+            boolean userExists = dbConnection.checkUserExists(user_name);
+            if (userExists) {
+                statusLabel.setText("Username already exists. Please choose another one.");
+                return;
+            }
+
+            // Add user to the database
+            dbConnection.addUser(user_name, password, accountType);
+            statusLabel.setText("Registration successful. Please log in.");
+
 
 
             // Perform your registration logic here
@@ -64,8 +77,9 @@ public class SignUpController {
             statusLabel.setText("Registration failed: " + e.getMessage());
         }
     }
-
-
+    private boolean checkUserExists(String user_name) throws SQLException {
+        return dbConnection.checkUserExists(user_name);
+    }
 
 
 

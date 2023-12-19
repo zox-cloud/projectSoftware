@@ -54,7 +54,7 @@ public class LoginController {
         Scene scene = null;
 
         if (user instanceof Admin) {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("src/main/resources/com/example/demo13/AdminPanel.fxml")));
+            scene = new Scene(FXMLLoader.load(getClass().getResource("com.example.demo13.AdminController")));
         } else if (user instanceof Client) {
             scene = new Scene(FXMLLoader.load(getClass().getResource("/path/to/ClientPanel.fxml")));
         }

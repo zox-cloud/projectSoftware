@@ -665,6 +665,9 @@ class Basket {
     // Other methods and functionalities
 }
 
+class Olzhas{
+    String iamhere;
+}
 
 
 // TODO: 16.12.2023  в админ панель надо добавить список клиентов и товаров

@@ -671,6 +671,8 @@ class Olzhas{
 }
 class alikhan{
     String wearehere;
+    int a;
+    int b;
 }
 
 

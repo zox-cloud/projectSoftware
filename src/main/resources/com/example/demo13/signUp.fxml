@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+
+<?import java.lang.String?>
+<VBox fx:id="signUpBox" spacing="15" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.SignUpController">
+    <Label text="Sign Up" style="-fx-font-size: 24px;"/>
+    <TextField fx:id="usernameField" promptText="Username"/>
+    <PasswordField fx:id="passwordField" promptText="Password"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"/>
+    <ComboBox fx:id="accountTypeComboBox" promptText="Account Type">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Client"/>
+                <String fx:value="Admin"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Button text="Register" onAction="#handleRegisterAction"/>
+    <Button text="Already have an account? Log in" onAction="#handleSwitchToLogin"/>
+    <Label fx:id="statusLabel" textFill="red"/>
+</VBox>

@@ -1,43 +1,47 @@
 package com.example.demo13;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import java.sql.SQLException;
-import java.util.List;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 
 public class AdminController {
 
     @FXML
-    private ListView<String> productsList; // Assuming a ListView to display products
+    private StackPane contentArea;
 
-    @FXML
-    private ListView<String> clientsList; // Assuming a ListView to display clients
-
-    @FXML
-    private void viewProducts() {
-        try {
-            List<Product> products = DatabaseConnection.getInstance().getProducts();
-            for (Product product : products) {
-                // Assuming Product has a toString() method that formats it nicely
-                productsList.getItems().add(product.toString());
-            }
-        } catch (SQLException e) {
-            // Handle SQL exception
-        }
+    public AdminController() {
+        // Initialize any necessary components
     }
 
     @FXML
-    private void viewClients() {
-        try {
-            List<Client> clients = DatabaseConnection.getInstance().getClients();
-            for (Client client : clients) {
-                // Assuming Client has a toString() method that formats it nicely
-                clientsList.getItems().add(client.toString());
-            }
-        } catch (SQLException e) {
-            // Handle SQL exception
-        }
+    private void handleAddNewProduct() {
+        // Code to display add new product form
     }
 
-    // Additional methods to handle other admin functionalities
+    @FXML
+    private void handleUpdateProductPrice() {
+        // Code to display update product price form
+    }
+
+    @FXML
+    private void handleDeleteProduct() {
+        // Code to handle product deletion
+    }
+
+    @FXML
+    private void handleViewUsers() {
+        // Code to display a list of users
+    }
+
+    @FXML
+    private void handleViewProducts() {
+        // Code to display a list of products
+    }
+
+    @FXML
+    private void handleLogout() {
+        // Code to handle logout and return to the login screen
+    }
+
+    // Additional methods and logic as required
 }

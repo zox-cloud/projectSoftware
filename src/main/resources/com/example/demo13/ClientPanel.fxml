@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox fx:id="clientDashboard" spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.ClientController">
+    <Label text="Client Dashboard" style="-fx-font-size: 20px;"/>
+    <Button text="View Products" onAction="#handleViewProducts"/>
+    <Button text="View Basket" onAction="#handleViewBasket"/>
+    <Button text="Place Order" onAction="#handlePlaceOrder"/>
+    <Button text="Logout" onAction="#handleLogout"/>
+
+    <!-- This is the area where the list of products and basket contents will be shown -->
+    <StackPane fx:id="contentArea" minWidth="200" minHeight="200">
+        <!-- Dynamic content will be loaded here -->
+    </StackPane>
+</VBox>

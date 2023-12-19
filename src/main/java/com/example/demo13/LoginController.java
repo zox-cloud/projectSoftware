@@ -52,11 +52,15 @@ public class LoginController {
     private void loadAppropriateScene(UserAccount user) throws IOException {
         Stage stage = (Stage) usernameField.getScene().getWindow();
         Scene scene = null;
+        FXMLLoader loader = null;
 
         if (user instanceof Admin) {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("com.example.demo13.AdminController")));
+            loader = new FXMLLoader(getClass().getResource("AdminPanel.fxml"));
+
+            scene = new Scene(loader.load() , 400 , 400);
         } else if (user instanceof Client) {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/path/to/ClientPanel.fxml")));
+            loader = new FXMLLoader(getClass().getResource("ClientPanel.fxml"));
+            scene = new Scene(loader.load() , 400  ,400);
         }
 
         if (scene != null) {

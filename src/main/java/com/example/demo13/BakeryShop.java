@@ -12,7 +12,7 @@ public class BakeryShop extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(BakeryShop.class.getResource("Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BakeryShop.class.getResource("signUp.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),400 , 400);
 
         primaryStage.setTitle("Bakery Shop Application");

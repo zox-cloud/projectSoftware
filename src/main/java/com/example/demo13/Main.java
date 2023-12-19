@@ -662,6 +662,7 @@ class Basket {
         System.out.println("Total Price: $" + getTotalPrice());
     }
 
+
     // Other methods and functionalities
 }
 

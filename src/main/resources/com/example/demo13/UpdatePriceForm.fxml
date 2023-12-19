@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.UpdatePriceController" spacing="10" alignment="CENTER">
+    <TextField fx:id="productIdField" promptText="Product ID"/>
+    <TextField fx:id="newPriceField" promptText="New Price"/>
+    <Button text="Update Price" onAction="#handleUpdatePrice"/>
+</VBox>

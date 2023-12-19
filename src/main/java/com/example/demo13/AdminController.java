@@ -126,7 +126,7 @@ public class AdminController {
     private void handleUpdateProductPrice() {
         try {
             // Load the update product price form FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateProductPriceForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdatePriceForm.fxml"));
             Parent updateProductPriceForm = loader.load();
 
             // Set the form into the content area
@@ -160,10 +160,31 @@ public class AdminController {
   // This will display a list of usernames as strings
 
     @FXML
-    private void handleViewUsers() throws SQLException {
-        List<Client> clients = dbConnection.getClients();
-        usersListView.getItems().setAll(clients);
+    private void handleViewUsers() {
+        setupUserListView();
 
+        // Fetch and display clients
+        try {
+            List<Client> clients = dbConnection.getClients();
+            usersListView.getItems().setAll(clients);
+        } catch (SQLException e) {
+            showAlert("Error", "Failed to load users: " + e.getMessage());
+        }
+    }
+
+    private void setupUserListView() {
+        usersListView.setCellFactory(lv -> new ListCell<Client>() {
+            @Override
+            protected void updateItem(Client client, boolean empty) {
+                super.updateItem(client, empty);
+                if (empty || client == null) {
+                    setText(null);
+                } else {
+                    // Customize how the client data is displayed
+                    setText("Client Name: " + client.getName());
+                }
+            }
+        });
     }
 
     @FXML

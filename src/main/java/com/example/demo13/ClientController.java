@@ -57,7 +57,7 @@ public class ClientController {
     private void handleLogout(ActionEvent event) {
         try {
             // Load the login view FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
             Scene scene = new Scene(loader.load() , 400 , 400); // Update the path to your login FXML file
 
             // Get the current window and set the scene to the login view
@@ -65,7 +65,7 @@ public class ClientController {
             stage.setScene(scene);
 
             // Optional: Set the title of the window
-            stage.setTitle("Login");
+            stage.setTitle("Sign Up");
 
             // Show the new scene
             stage.show();

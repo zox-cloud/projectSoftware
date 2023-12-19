@@ -23,7 +23,6 @@ public class LoginController {
     private Label loginStatusLabel;
 
 
-
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();

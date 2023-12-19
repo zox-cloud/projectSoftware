@@ -708,6 +708,14 @@ class Basket {
         System.out.println("Total Price: $" + getTotalPrice());
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+    public void clear() {
+        products.clear();
+    }
+
+
 
     // Other methods and functionalities
 }

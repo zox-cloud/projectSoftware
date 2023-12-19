@@ -3,15 +3,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<VBox fx:id="clientDashboard" spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.ClientController">
-    <Label text="Client Dashboard" style="-fx-font-size: 20px;"/>
-    <Button text="View Products" onAction="#handleViewProducts"/>
-    <Button text="View Basket" onAction="#handleViewBasket"/>
-    <Button text="Place Order" onAction="#handlePlaceOrder"/>
-    <Button text="Logout" onAction="#handleLogout"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.ClientController" spacing="10" alignment="TOP_CENTER">
+    <Label text="Bakery Shop - Client Area" styleClass="header-label"/>
 
-    <!-- This is the area where the list of products and basket contents will be shown -->
-    <StackPane fx:id="contentArea" minWidth="200" minHeight="200">
-        <!-- Dynamic content will be loaded here -->
-    </StackPane>
+    <!-- Section for product ID input and add to basket button -->
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="productIdField" promptText="Enter Product ID"/>
+        <Button text="Add Product to Basket" onAction="#handleAddProductToBasket"/>
+    </HBox>
+
+    <!-- ListView for displaying products -->
+    <VBox spacing="5">
+        <Label text="Available Products:" styleClass="subheader-label"/>
+        <ListView fx:id="productsListView" styleClass="list-view"/>
+    </VBox>
+
+    <!-- Buttons for viewing basket and placing orders -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="View Basket" onAction="#handleViewBasket"/>
+        <Button text="Place Order" onAction="#handlePlaceOrder"/>
+    </HBox>
+
+    <!-- Logout button -->
+    <Button text="Logout" onAction="#handleLogout" styleClass="logout-button"/>
 </VBox>

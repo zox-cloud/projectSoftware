@@ -10,16 +10,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="496.0" prefWidth="493.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.SignUpController">
-   <top>
-      <VBox fx:id="signUpBox" alignment="TOP_CENTER" prefHeight="583.0" prefWidth="493.0" spacing="15" BorderPane.alignment="CENTER">
-          <Label style="-fx-font-size: 24px;" text="Sign Up" />
-          <TextField fx:id="usernameField" maxWidth="-Infinity" promptText="Username" />
-          <PasswordField fx:id="passwordField" maxWidth="-Infinity" promptText="Password" />
-          <PasswordField fx:id="confirmPasswordField" maxWidth="-Infinity" promptText="Confirm Password" />
-          <ComboBox fx:id="accountTypeComboBox" editable="false" promptText="Account Type">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.SignUpController">
+   <center>
+      <VBox fx:id="signUpBox" alignment="TOP_CENTER" prefHeight="583.0" prefWidth="551.0" spacing="15" style="-fx-background-color: #dbb481;" BorderPane.alignment="CENTER">
+         <Label text="Sign Up" textFill="#392828">
+            <font>
+               <Font name="Baskerville" size="36.0" />
+            </font>
+         </Label>
+          <TextField fx:id="usernameField" maxWidth="-Infinity" promptText="Username" style="-fx-border-color: #3b332a;" />
+          <PasswordField fx:id="passwordField" maxWidth="-Infinity" promptText="Password" style="-fx-border-color: #3b332a;" />
+          <PasswordField fx:id="confirmPasswordField" maxWidth="-Infinity" promptText="Confirm Password" style="-fx-border-color: #3b332a;" />
+          <ComboBox fx:id="accountTypeComboBox" editable="false" promptText="Account Type" style="-fx-border-color: #3b332a; -fx-background-color: #c29e6e;">
               <items>
                   <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Client" />
@@ -27,9 +31,9 @@
                   </FXCollections>
               </items>
           </ComboBox>
-          <Button onAction="#handleRegisterAction" text="Register" />
+          <Button onAction="#handleRegisterAction" style="-fx-border-color: #3b332a; -fx-background-color: #c29e6e;" text="Register" />
          <Hyperlink onAction="#handleSwitchToLogin" text="Already hava an account? Log in!" />
           <Label fx:id="statusLabel" textFill="red" />
       </VBox>
-   </top>
+   </center>
 </BorderPane>

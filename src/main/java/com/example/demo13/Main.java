@@ -20,39 +20,39 @@ import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        IDataBaseConnection dbConnection = new  DataBaseConnectionProxy();
-        boolean running = true;
-
-        while (running) {
-            System.out.println("Welcome to the Bakery Shop!");
-            System.out.println("1. Login");
-            System.out.println("2. Register");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
-
-            switch (choice) {
-                case 1 -> {
-                    // Login functionality
-                    UserAccount user = login(scanner, dbConnection);
-                    if (user != null) {
-                        if (user instanceof Admin) {
-                            performAdminActions((Admin) user, scanner, dbConnection);
-                        } else if (user instanceof Client) {
-                            performClientActions((Client) user, scanner, dbConnection);
-                        }
-                    }
-                }
-                case 2 ->
-                    // Registration functionality
-                        register(scanner, dbConnection);
-                case 3 -> running = false;
-                default -> System.out.println("Invalid option.");
-            }
-        }
-        scanner.close();
+//        Scanner scanner = new Scanner(System.in);
+//        IDataBaseConnection dbConnection = new  DataBaseConnectionProxy();
+//        boolean running = true;
+//
+//        while (running) {
+//            System.out.println("Welcome to the Bakery Shop!");
+//            System.out.println("1. Login");
+//            System.out.println("2. Register");
+//            System.out.println("3. Exit");
+//            System.out.print("Choose an option: ");
+//            int choice = scanner.nextInt();
+//            scanner.nextLine(); // consume newline
+//
+//            switch (choice) {
+//                case 1 -> {
+//                    // Login functionality
+//                    UserAccount user = login(scanner, dbConnection);
+//                    if (user != null) {
+//                        if (user instanceof Admin) {
+//                            performAdminActions((Admin) user, scanner, dbConnection);
+//                        } else if (user instanceof Client) {
+//                            performClientActions((Client) user, scanner, dbConnection);
+//                        }
+//                    }
+//                }
+//                case 2 ->
+//                    // Registration functionality
+//                        register(scanner, dbConnection);
+//                case 3 -> running = false;
+//                default -> System.out.println("Invalid option.");
+//            }
+//        }
+//        scanner.close();
 
 
 
@@ -60,26 +60,26 @@ public class Main{
 
 
     // TODO: 15.12.2023 Registration
-    private static UserAccount login(Scanner scanner, IDataBaseConnection dbConnection) {
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        try {
-            String accountType = dbConnection.checkUser(username, password);
-            if ("admin".equalsIgnoreCase(accountType)) {
-                return new Admin(username);  // Directly creating an Admin instance
-            } else if ("client".equalsIgnoreCase(accountType)) {
-                return new Client(username); // Directly creating a Client instance
-            } else {
-                System.out.println("Invalid login credentials.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-        }
-        return null;
-    }
+//    private static UserAccount login(Scanner scanner, IDataBaseConnection dbConnection) {
+//        System.out.print("Enter username: ");
+//        String username = scanner.nextLine();
+//        System.out.print("Enter password: ");
+//        String password = scanner.nextLine();
+//
+//        try {
+//            String accountType = dbConnection.checkUser(username, password);
+//            if ("admin".equalsIgnoreCase(accountType)) {
+//                return new Admin(username);  // Directly creating an Admin instance
+//            } else if ("client".equalsIgnoreCase(accountType)) {
+//                return new Client(username); // Directly creating a Client instance
+//            } else {
+//                System.out.println("Invalid login credentials.");
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Database error: " + e.getMessage());
+//        }
+//        return null;
+//    }
 
     private static void register(Scanner scanner, IDataBaseConnection dbConnection) {
         System.out.print("Enter username: ");
@@ -99,169 +99,169 @@ public class Main{
 
 
     // TODO: 15.12.2023 ADMIN handle
-    private static void performAdminActions(Admin admin, Scanner scanner, IDataBaseConnection dbConnection) {
-        boolean continueAdminSession = true;
-
-        while (continueAdminSession) {
-            System.out.println("Admin Panel:");
-            System.out.println("1. Add New Product");
-            System.out.println("2. Update Product Price");
-            System.out.println("3. Delete Product");
-            System.out.println("4. List of User");
-            System.out.println("5. List of product");
-            System.out.println("4. Exit");
-            System.out.print("Choose an option: ");
-            int option = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            switch (option) {
-                case 1:
-                    addNewProduct(scanner, dbConnection);
-                    break;
-                case 2:
-                    updateProductPrice(scanner, dbConnection);
-                    break;
-                case 3:
-                    deleteProduct(scanner, admin);
-                case 4:
-                    displayProducts(dbConnection);
-                case 5:
-
-
-                case 6:
-                    continueAdminSession = false;
-                    break;
-                default:
-                    System.out.println("Invalid option.");
-                    break;
-            }
-        }
-    }
-    private static void addNewProduct(Scanner scanner, IDataBaseConnection dbConnection) {
-        System.out.println("Enter product id");
-        int id = scanner.nextInt();
-        System.out.print("Enter product name: ");
-        String name = scanner.next();
-        System.out.print("Enter product price: ");
-        int price = scanner.nextInt();
-        System.out.print("Enter category ID: ");
-        int categoryId = scanner.nextInt();
-
-        try {
-            dbConnection.addProduct( id ,name, price);
-            System.out.println("Product added successfully.");
-        } catch (SQLException e) {
-            System.err.println("Error adding product: " + e.getMessage());
-        }
-    }
-    private static void deleteProduct(Scanner scanner, Admin admin) {
-        System.out.print("Enter the ID of the product to delete: ");
-        int productId = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-
-        admin.deleteProduct(productId);
-    }
-    private static void updateProductPrice(Scanner scanner, IDataBaseConnection dbConnection) {
-        System.out.print("Enter product ID to update price: ");
-        int productId = scanner.nextInt();
-        System.out.print("Enter new price: ");
-        double newPrice = scanner.nextDouble();
-
-        try {
-            dbConnection.updatePrice(productId, (int) newPrice);
-            System.out.println("Product price updated successfully.");
-        } catch (SQLException e) {
-            System.err.println("Error updating product price: " + e.getMessage());
-        }
-    }
-
-
-    // TODO: 15.12.2023 Client handle
-    private static void performClientActions(Client client, Scanner scanner, IDataBaseConnection dbConnection) {
-        boolean continueShopping = true;
-        Basket basket = new Basket();
-
-        while (continueShopping) {
-            System.out.println("1. View Products");
-            System.out.println("2. Add Product to Basket");
-            System.out.println("3. View Basket");
-            System.out.println("4. Place Order");
-            System.out.println("5. Exit");
-            System.out.print("Choose an option: ");
-            int option = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            switch (option) {
-                case 1 -> displayProducts(dbConnection);
-                case 2 -> addProductToBasket(scanner, basket, dbConnection);
-                case 3 -> basket.displayBasket();
-                case 4 -> placeOrder(scanner, basket);
-                case 5 -> continueShopping = false;
-                default -> System.out.println("Invalid option.");
-            }
-        }
-    }
-    private static void addProductToBasket(Scanner scanner, Basket basket, IDataBaseConnection dbConnection) {
-        System.out.print("Enter the ID of the product to add to your basket: ");
-        int productId = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-
-        try {
-            Product product = dbConnection.getProductById(productId);
-            if (product != null) {
-                basket.addProduct(product);
-                System.out.println(product.getName() + " added to your basket.");
-            } else {
-                System.out.println("Product with ID " + productId + " not found.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching product: " + e.getMessage());
-        }
-    }
-    private static void displayProducts(IDataBaseConnection dbConnection) {
-        try {
-            List<Product> products = dbConnection.getProducts();
-            if (products.isEmpty()) {
-                System.out.println("No products available.");
-                return;
-            }
-
-            System.out.println("Available Products:");
-            for (Product product : products) {
-                System.out.println("ID: " + product.getId() + ", Name: " + product.getName() + ", Price: $" + product.getPrice());
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching products: " + e.getMessage());
-        }
-    }
-    private static void placeOrder(Scanner scanner,  Basket basket) {
-        System.out.print("Enter delivery address: ");
-        String address = scanner.nextLine();
-        System.out.println("Choose payment method:\n 1.PayPal\n 2.Credit Card\n 3.Crypto");
-        int paymentChoice = scanner.nextInt();
-        PaymentContext paymentContext = new PaymentContext();
-
-        switch (paymentChoice) {
-            case 1:
-                paymentContext.setPaymentStrategy(new PayPal());
-                break;
-            case 2:
-                paymentContext.setPaymentStrategy(new CreditCardPayment());
-                break;
-            case 3:
-                paymentContext.setPaymentStrategy(new CryptoPayment());
-                break;
-            default:
-                System.out.println("Invalid payment method selected.");
-                return;
-        }
-
-        int amount =(int) basket.getTotalPrice();
-        paymentContext.executePayment(amount);
-
-        System.out.println("Order placed delivery to " +  address );
-        System.out.println("Total amount " + amount );
-    }
+//    private static void performAdminActions(Admin admin, Scanner scanner, IDataBaseConnection dbConnection) {
+//        boolean continueAdminSession = true;
+//
+//        while (continueAdminSession) {
+//            System.out.println("Admin Panel:");
+//            System.out.println("1. Add New Product");
+//            System.out.println("2. Update Product Price");
+//            System.out.println("3. Delete Product");
+//            System.out.println("4. List of User");
+//            System.out.println("5. List of product");
+//            System.out.println("4. Exit");
+//            System.out.print("Choose an option: ");
+//            int option = scanner.nextInt();
+//            scanner.nextLine(); // Consume newline
+//
+//            switch (option) {
+//                case 1:
+//                    addNewProduct(scanner, dbConnection);
+//                    break;
+//                case 2:
+//                    updateProductPrice(scanner, dbConnection);
+//                    break;
+//                case 3:
+//                    deleteProduct(scanner, admin);
+//                case 4:
+//                    displayProducts(dbConnection);
+//                case 5:
+//
+//
+//                case 6:
+//                    continueAdminSession = false;
+//                    break;
+//                default:
+//                    System.out.println("Invalid option.");
+//                    break;
+//            }
+//        }
+//    }
+//    private static void addNewProduct(Scanner scanner, IDataBaseConnection dbConnection) {
+//        System.out.println("Enter product id");
+//        int id = scanner.nextInt();
+//        System.out.print("Enter product name: ");
+//        String name = scanner.next();
+//        System.out.print("Enter product price: ");
+//        int price = scanner.nextInt();
+//        System.out.print("Enter category ID: ");
+//        int categoryId = scanner.nextInt();
+//
+//        try {
+//            dbConnection.addProduct( id ,name, price);
+//            System.out.println("Product added successfully.");
+//        } catch (SQLException e) {
+//            System.err.println("Error adding product: " + e.getMessage());
+//        }
+//    }
+//    private static void deleteProduct(Scanner scanner, Admin admin) {
+//        System.out.print("Enter the ID of the product to delete: ");
+//        int productId = scanner.nextInt();
+//        scanner.nextLine(); // Consume newline
+//
+//        admin.deleteProduct(productId);
+//    }
+//    private static void updateProductPrice(Scanner scanner, IDataBaseConnection dbConnection) {
+//        System.out.print("Enter product ID to update price: ");
+//        int productId = scanner.nextInt();
+//        System.out.print("Enter new price: ");
+//        double newPrice = scanner.nextDouble();
+//
+//        try {
+//            dbConnection.updatePrice(productId, (int) newPrice);
+//            System.out.println("Product price updated successfully.");
+//        } catch (SQLException e) {
+//            System.err.println("Error updating product price: " + e.getMessage());
+//        }
+//    }
+//
+//
+//    // TODO: 15.12.2023 Client handle
+//    private static void performClientActions(Client client, Scanner scanner, IDataBaseConnection dbConnection) {
+//        boolean continueShopping = true;
+//        Basket basket = new Basket();
+//
+//        while (continueShopping) {
+//            System.out.println("1. View Products");
+//            System.out.println("2. Add Product to Basket");
+//            System.out.println("3. View Basket");
+//            System.out.println("4. Place Order");
+//            System.out.println("5. Exit");
+//            System.out.print("Choose an option: ");
+//            int option = scanner.nextInt();
+//            scanner.nextLine(); // Consume newline
+//
+//            switch (option) {
+//                case 1 -> displayProducts(dbConnection);
+//                case 2 -> addProductToBasket(scanner, basket, dbConnection);
+//                case 3 -> basket.displayBasket();
+//                case 4 -> placeOrder(scanner, basket);
+//                case 5 -> continueShopping = false;
+//                default -> System.out.println("Invalid option.");
+//            }
+//        }
+//    }
+//    private static void addProductToBasket(Scanner scanner, Basket basket, IDataBaseConnection dbConnection) {
+//        System.out.print("Enter the ID of the product to add to your basket: ");
+//        int productId = scanner.nextInt();
+//        scanner.nextLine(); // Consume newline
+//
+//        try {
+//            Product product = dbConnection.getProductById(productId);
+//            if (product != null) {
+//                basket.addProduct(product);
+//                System.out.println(product.getName() + " added to your basket.");
+//            } else {
+//                System.out.println("Product with ID " + productId + " not found.");
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Error fetching product: " + e.getMessage());
+//        }
+//    }
+//    private static void displayProducts(IDataBaseConnection dbConnection) {
+//        try {
+//            List<Product> products = dbConnection.getProducts();
+//            if (products.isEmpty()) {
+//                System.out.println("No products available.");
+//                return;
+//            }
+//
+//            System.out.println("Available Products:");
+//            for (Product product : products) {
+//                System.out.println("ID: " + product.getId() + ", Name: " + product.getName() + ", Price: $" + product.getPrice());
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Error fetching products: " + e.getMessage());
+//        }
+//    }
+//    private static void placeOrder(Scanner scanner,  Basket basket) {
+//        System.out.print("Enter delivery address: ");
+//        String address = scanner.nextLine();
+//        System.out.println("Choose payment method:\n 1.PayPal\n 2.Credit Card\n 3.Crypto");
+//        int paymentChoice = scanner.nextInt();
+//        PaymentContext paymentContext = new PaymentContext();
+//
+//        switch (paymentChoice) {
+//            case 1:
+//                paymentContext.setPaymentStrategy(new PayPal());
+//                break;
+//            case 2:
+//                paymentContext.setPaymentStrategy(new CreditCardPayment());
+//                break;
+//            case 3:
+//                paymentContext.setPaymentStrategy(new CryptoPayment());
+//                break;
+//            default:
+//                System.out.println("Invalid payment method selected.");
+//                return;
+//        }
+//
+//        int amount =(int) basket.getTotalPrice();
+//        paymentContext.executePayment(amount);
+//
+//        System.out.println("Order placed delivery to " +  address );
+//        System.out.println("Total amount " + amount );
+//    }
 }
 
 
@@ -277,10 +277,10 @@ interface IDataBaseConnection{
     Product getProductById(int product_id) throws SQLException;
     List<Client> getClients() throws SQLException;
 
+    boolean checkUserExists(String username) throws SQLException;
+
 
     Connection connection();
-
-    boolean checkUserExists(String username) throws SQLException;
 }
 // TODO: 15.12.2023 Single
 
@@ -314,7 +314,7 @@ class DatabaseConnection implements IDataBaseConnection{
             statement.setString(1 , name);
             statement.setString(2 , password);
             statement.setString(3 , account_type);
-//            statement.setString(3 , account_type);
+
             statement.executeUpdate();
         }
     }
@@ -331,7 +331,7 @@ class DatabaseConnection implements IDataBaseConnection{
                 if (resultSet.next()) {
                     return resultSet.getString("account_type");
                 } else {
-                    return null; // User not found or password incorrect
+                    return null;
                 }
             }
         }
@@ -507,8 +507,7 @@ class DataBaseConnectionProxy implements IDataBaseConnection{
     }
 
     public Connection getConnection() throws SQLException {
-        // You would return the actual connection object from your connection class
-        // Ensure that you handle the SQLException in case the connection cannot be established
+
         return getRealConnnection().connection();
     }
 
@@ -542,63 +541,63 @@ class Admin extends UserAccount{
     }
 
 
-
-
-    public void addProduct(int product_id , String product_name , int price , int category_id){
-        try {
-            DatabaseConnection.getInstance().addProduct(product_id , product_name , price);
-        } catch (SQLException e) {
-            System.err.println("Error adding product " + e.getSQLState());
-        }
-    }
-
-    public void updateProductPrice(int product_id , int new_price){
-        try {
-            DatabaseConnection.getInstance().updatePrice(product_id , new_price);
-            System.out.println("Product price updated successfully");
-        } catch (SQLException e) {
-            System.err.println("Error updating process " + e.getMessage());
-        }
-    }
-    public void deleteProduct(int productId) {
-        try {
-            DatabaseConnection.getInstance().deleteProduct(productId);
-            System.out.println("Product deleted successfully.");
-        } catch (SQLException e) {
-            System.err.println("Error deleting product: " + e.getMessage());
-        }
-    }
-    public void displayProducts(IDataBaseConnection dbConnection) {
-        try {
-            List<Product> products = dbConnection.getProducts();
-            // ... code to display products ...
-        } catch (SQLException e) {
-            System.err.println("Error fetching products: " + e.getMessage());
-        }
-    }
-
-
-    public void displayClients(IDataBaseConnection dbConnection) {
-        try {
-            List<Client> clients = dbConnection.getClients();
-            if (clients.isEmpty()) {
-                System.out.println("No clients are registered.");
-            } else {
-                System.out.println("List of Clients:");
-                for (Client client : clients) {
-                    System.out.println("Client Name: " + client.getName());
-                    // Additional client details can be displayed here if available
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching clients: " + e.getMessage());
-        }
-    }
+//
+//
+//    public void addProduct(int product_id , String product_name , int price , int category_id){
+//        try {
+//            DatabaseConnection.getInstance().addProduct(product_id , product_name , price);
+//        } catch (SQLException e) {
+//            System.err.println("Error adding product " + e.getSQLState());
+//        }
+//    }
+//
+//    public void updateProductPrice(int product_id , int new_price){
+//        try {
+//            DatabaseConnection.getInstance().updatePrice(product_id , new_price);
+//            System.out.println("Product price updated successfully");
+//        } catch (SQLException e) {
+//            System.err.println("Error updating process " + e.getMessage());
+//        }
+//    }
+//    public void deleteProduct(int productId) {
+//        try {
+//            DatabaseConnection.getInstance().deleteProduct(productId);
+//            System.out.println("Product deleted successfully.");
+//        } catch (SQLException e) {
+//            System.err.println("Error deleting product: " + e.getMessage());
+//        }
+//    }
+//    public void displayProducts(IDataBaseConnection dbConnection) {
+//        try {
+//            List<Product> products = dbConnection.getProducts();
+//            // ... code to display products ...
+//        } catch (SQLException e) {
+//            System.err.println("Error fetching products: " + e.getMessage());
+//        }
+//    }
+//
+//
+//    public void displayClients(IDataBaseConnection dbConnection) {
+//        try {
+//            List<Client> clients = dbConnection.getClients();
+//            if (clients.isEmpty()) {
+//                System.out.println("No clients are registered.");
+//            } else {
+//                System.out.println("List of Clients:");
+//                for (Client client : clients) {
+//                    System.out.println("Client Name: " + client.getName());
+//                    // Additional client details can be displayed here if available
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Error fetching clients: " + e.getMessage());
+//        }
+//    }
 
 
 }
 class Client extends UserAccount{
-    private Basket basket = new Basket();
+
     public Client(String name) {
         super(name);
     }
@@ -695,18 +694,7 @@ class Basket {
         return totalPrice;
     }
 
-    public void displayBasket() {
-        if (products.isEmpty()) {
-            System.out.println("Your basket is empty.");
-            return;
-        }
 
-        System.out.println("Basket Contents:");
-        for (Product product : products) {
-            System.out.println(product.getName() + " - $" + product.getPrice());
-        }
-        System.out.println("Total Price: $" + getTotalPrice());
-    }
 
     public List<Product> getProducts() {
         return products;
@@ -717,9 +705,7 @@ class Basket {
 
 
 
-    // Other methods and functionalities
+
 }
 
 
-
-// TODO: 16.12.2023  в админ панель надо добавить список клиентов и товаров

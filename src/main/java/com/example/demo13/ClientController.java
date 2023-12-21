@@ -306,22 +306,22 @@ public class ClientController {
     @FXML
     private void handleLogout(ActionEvent event) {
         try {
-            // Load the login view FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
             Scene scene = new Scene(loader.load() , 400 , 400); // Update the path to your login FXML file
 
-            // Get the current window and set the scene to the login view
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();// signUpBox is the VBox id from your SignUp.fxml
             stage.setScene(scene);
 
-            // Optional: Set the title of the window
+
             stage.setTitle("Sign Up");
 
-            // Show the new scene
+
             stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace(); // Log the exception, or show an error dialog
+            e.printStackTrace();
         }
     }
     private void showAlert(String title, String content) {

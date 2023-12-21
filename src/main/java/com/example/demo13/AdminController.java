@@ -34,7 +34,7 @@ public class AdminController {
     private IDataBaseConnection dbConnection;
     @FXML
     private void initialize() {
-        // Assuming your VBox or another parent element is accessible as 'adminPanel'
+
         adminPanel.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
@@ -45,12 +45,11 @@ public class AdminController {
                 if (empty || product == null) {
                     setText(null);
                 } else {
-                    setText( product.getId() + product.getName() + " - $" + product.getPrice());
+                    setText( product.getId()  + " "+ product.getName() + " - $" + product.getPrice());
                 }
             }
         });
 
-        // Load products initially or when needed
         handleViewProducts();
 
 
@@ -60,22 +59,22 @@ public class AdminController {
     }
 
     public AdminController() {
-        // Initialize any necessary components
+
         dbConnection = new DataBaseConnectionProxy();
     }
 
     @FXML
     private void handleAddNewProduct() {
-        // Create the custom dialog.
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(adminPanel.getScene().getWindow());
         dialog.setTitle("Add New Product");
 
-        // Set the button types.
+
         ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
 
-        // Create the product ID, name, and price labels and fields.
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -96,19 +95,20 @@ public class AdminController {
 
         dialog.getDialogPane().setContent(grid);
 
-        // Request focus on the product ID field by default.
+
         productIdField.requestFocus();
 
-        // Convert the result when the add button is clicked.
+
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButtonType) {
                 try {
                     int productId = Integer.parseInt(productIdField.getText());
                     String productName = productNameField.getText();
                     int productPrice = Integer.parseInt(productPriceField.getText());
-                    // Insert product into the database
+
                     dbConnection.addProduct(productId , productName , productPrice);
                     showAlert("Success", "Product added successfully.");
+                    handleViewProducts();
                 } catch (NumberFormatException e) {
                     showAlert("Error", "Please enter valid numbers for product ID and price.");
                 } catch (SQLException e) {
@@ -125,12 +125,13 @@ public class AdminController {
     @FXML
     private void handleUpdateProductPrice() {
         try {
-            // Load the update product price form FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdatePriceForm.fxml"));
             Parent updateProductPriceForm = loader.load();
 
-            // Set the form into the content area
+
             contentArea.getChildren().setAll(updateProductPriceForm);
+            handleViewProducts();
         } catch (IOException e) {
             showAlert("Error", "Failed to load the update product price form.");
         }
@@ -149,6 +150,7 @@ public class AdminController {
                 int id = Integer.parseInt(productId);
                 dbConnection.deleteProduct(id);
                 showAlert("Success", "Product successfully deleted.");
+                handleViewProducts();
             } catch (NumberFormatException e) {
                 showAlert("Error", "Invalid product ID format.");
             } catch (SQLException e) {
@@ -157,13 +159,13 @@ public class AdminController {
         });
     }
 
-  // This will display a list of usernames as strings
+
 
     @FXML
     private void handleViewUsers() {
         setupUserListView();
 
-        // Fetch and display clients
+
         try {
             List<Client> clients = dbConnection.getClients();
             usersListView.getItems().setAll(clients);
@@ -189,10 +191,9 @@ public class AdminController {
 
     @FXML
     private void handleViewProducts() {
-        // Clear current products
+
         productsListView.getItems().clear();
 
-        // Fetch and display products
         try {
             List<Product> products = dbConnection.getProducts();
             productsListView.getItems().addAll(products);
@@ -204,18 +205,18 @@ public class AdminController {
     @FXML
     private void handleLogout(ActionEvent event) {
         try {
-            // Load the login view FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
-            Scene scene = new Scene(loader.load() , 400 , 400); // Update the path to your login FXML file
 
-            // Get the current window and set the scene to the login view
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();// signUpBox is the VBox id from your SignUp.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
+            Scene scene = new Scene(loader.load() , 400 , 400);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
 
-            // Optional: Set the title of the window
+
             stage.setTitle("Login");
 
-            // Show the new scene
+
             stage.show();
 
         } catch (IOException e) {
@@ -231,5 +232,5 @@ public class AdminController {
     }
 
 
-    // Additional methods and logic as required
+
 }

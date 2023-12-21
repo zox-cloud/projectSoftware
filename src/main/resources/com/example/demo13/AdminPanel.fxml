@@ -16,8 +16,8 @@
     <Button text="View Products" onAction="#handleViewProducts"/>
     <Button text="Logout" onAction="#handleLogout"/>
 
-    <!-- Area to display forms or lists based on selection -->
-    <StackPane fx:id="contentArea">
-        <!-- Dynamic content goes here -->
-    </StackPane>
+
+<!--    <StackPane fx:id="contentArea">-->
+<!--       -->
+<!--    </StackPane>-->
 </VBox>

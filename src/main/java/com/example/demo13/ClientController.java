@@ -214,20 +214,34 @@ public class ClientController {
     @FXML
     private StackPane contentArea;
     @FXML
-    private ListView<Product> productsListView; // Assuming you have this ListView in your FXML
+    private ListView<Product> productsListView;
     @FXML
     private TextField productIdField;
 
-    private Basket basket;
-    private IDataBaseConnection dbConnection;
+    private final Basket basket;
+    private final IDataBaseConnection dbConnection;
+    @FXML
+    private ComboBox<String> paymentMethodComboBox;
+    private final PaymentContext paymentContext;
+    @FXML
+    private TextField streetAddressField;
+    @FXML
+    private TextField cityField;
+    @FXML
+    private TextField postalCodeField;
+    @FXML
+    private TextField countryField;
+
 
     public ClientController() {
         this.dbConnection = new DataBaseConnectionProxy();
         this.basket = new Basket();
+        this.paymentContext = new PaymentContext();
     }
 
     @FXML
     private void initialize() {
+        paymentMethodComboBox.getItems().addAll("PayPal", "Credit Card", "Crypto");
         productsListView.setCellFactory(lv -> new ListCell<Product>() {
             @Override
             protected void updateItem(Product product, boolean empty) {
@@ -235,12 +249,12 @@ public class ClientController {
                 if (empty || product == null) {
                     setText(null);
                 } else {
-                    setText( product.getId() + product.getName() + " - $" + product.getPrice());
+                    setText( product.getId() + " " + product.getName() + " - $" + product.getPrice());
                 }
             }
         });
 
-        // Load products initially or when needed
+
         handleViewProducts();
 
     }
@@ -252,6 +266,7 @@ public class ClientController {
             Product product = dbConnection.getProductById(productId);
             if (product != null) {
                 basket.addProduct(product);
+                handleViewBasket();
                 showAlert("Success", "Added " + product.getName() + " to basket.");
             } else {
                 showAlert("Error", "Product not found.");
@@ -264,10 +279,10 @@ public class ClientController {
     }
     @FXML
     private void handleViewProducts() {
-        // Clear current products
+
         productsListView.getItems().clear();
 
-        // Fetch and display products
+
         try {
             List<Product> products = dbConnection.getProducts();
             productsListView.getItems().addAll(products);
@@ -275,17 +290,41 @@ public class ClientController {
             showAlert("Error", "Failed to load products: " + e.getMessage());
         }
     }
+
+
     @FXML
     private void handleViewBasket() {
         ListView<String> basketListView = new ListView<>();
-        for (Product product : basket.getProducts()) {
-            basketListView.getItems().add(product.getName() + " - $" + product.getPrice());
-        }
-        if (basketListView.getItems().isEmpty()) {
+
+
+        if (basket.getProducts().isEmpty()) {
             basketListView.getItems().add("Your basket is empty.");
+        } else {
+
+            for (Product product : basket.getProducts()) {
+                basketListView.getItems().add(product.getName() + " - $" + product.getPrice());
+            }
         }
+
+        // Update the contentArea with the new ListView
         contentArea.getChildren().setAll(basketListView);
     }
+
+//    @FXML
+//    private void handlePlaceOrder() {
+//        if (basket.getProducts().isEmpty()) {
+//            showAlert("Empty Basket", "Your basket is empty.");
+//            return;
+//        }
+//        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Confirm your order for $" + basket.getTotalPrice() + "?", ButtonType.YES, ButtonType.CANCEL);
+//        confirmation.showAndWait().ifPresent(response -> {
+//            if (response == ButtonType.YES) {
+//
+//                basket.clear();
+//                showAlert("Order Placed", "Your order has been placed.");
+//            }
+//        });
+//    }
 
     @FXML
     private void handlePlaceOrder() {
@@ -293,15 +332,48 @@ public class ClientController {
             showAlert("Empty Basket", "Your basket is empty.");
             return;
         }
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Confirm your order for $" + basket.getTotalPrice() + "?", ButtonType.YES, ButtonType.CANCEL);
+        String address = validateAndGetAddress();
+        if (address == null) {
+            showAlert("Order Error", "Please enter a valid address.");
+            return;
+        }
+
+        String selectedPaymentMethod = paymentMethodComboBox.getValue();
+        if (selectedPaymentMethod == null) {
+            showAlert("Payment Error", "Please select a payment method.");
+            return;
+        }
+
+        switch (selectedPaymentMethod) {
+            case "PayPal":
+                paymentContext.setPaymentStrategy(new PayPal());
+                break;
+            case "Credit Card":
+                paymentContext.setPaymentStrategy(new CreditCardPayment());
+                break;
+            case "Crypto":
+                paymentContext.setPaymentStrategy(new CryptoPayment());
+                break;
+            default:
+                showAlert("Payment Error", "Invalid payment method.");
+                return;
+        }
+
+        double totalPrice = basket.getTotalPrice();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Confirm your order for $" + totalPrice + " to be delivered to:\n" + address, ButtonType.YES, ButtonType.CANCEL);
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
-                // Process the order
-                basket.clear();
-                showAlert("Order Placed", "Your order has been placed.");
+                try {
+                    paymentContext.executePayment(totalPrice);
+                    basket.clear();
+                    showAlert("Order Placed", "Your order has been placed and will be delivered to: " + address);
+                } catch (IllegalArgumentException e) {
+                    showAlert("Payment Error", e.getMessage());
+                }
             }
         });
     }
+
 
     @FXML
     private void handleLogout(ActionEvent event) {
@@ -329,5 +401,15 @@ public class ClientController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private String validateAndGetAddress() {
+        // Basic validation - make sure fields are not empty
+        if (streetAddressField.getText().isEmpty() || cityField.getText().isEmpty() || postalCodeField.getText().isEmpty() || countryField.getText().isEmpty()) {
+            return null;
+        }
+
+        // Construct the address string
+        return streetAddressField.getText() + ", " + cityField.getText() + ", " + postalCodeField.getText() + ", " + countryField.getText();
     }
 }

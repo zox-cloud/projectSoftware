@@ -20,9 +20,16 @@
 
     <!-- Buttons for viewing basket and placing orders -->
     <HBox spacing="10" alignment="CENTER">
+        <StackPane fx:id="contentArea" styleClass="list-view"/>
         <Button text="View Basket" onAction="#handleViewBasket"/>
         <Button text="Place Order" onAction="#handlePlaceOrder"/>
     </HBox>
+    <ComboBox fx:id="paymentMethodComboBox" />
+    <TextField fx:id="streetAddressField" promptText="Street Address"/>
+    <TextField fx:id="cityField" promptText="City"/>
+    <TextField fx:id="postalCodeField" promptText="Postal Code"/>
+    <TextField fx:id="countryField" promptText="Country"/>
+
 
     <!-- Logout button -->
     <Button text="Logout" onAction="#handleLogout" styleClass="logout-button"/>

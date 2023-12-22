@@ -10,19 +10,18 @@
     </VBox>
     <Label text="Admin Panel" style="-fx-font-size: 20px;" />
 
-    <!-- New horizontal box for left-aligned buttons -->
+
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Button text="Add New Product" onAction="#handleAddNewProduct"/>
         <Button text="Update Product Price" onAction="#handleUpdateProductPrice"/>
         <Button text="Delete Product" onAction="#handleDeleteProduct"/>
     </HBox>
 
-    <!-- Middle content can be another VBox or a placeholder -->
+
     <VBox spacing="10" alignment="CENTER">
-        <!-- Place your middle content here -->
     </VBox>
 
-    <!-- New horizontal box for right-aligned buttons -->
+
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="View Users" onAction="#handleViewUsers"/>
         <Button text="View Products" onAction="#handleViewProducts"/>

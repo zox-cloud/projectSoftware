@@ -15,7 +15,7 @@ public class UpdatePriceController {
     private IDataBaseConnection dbConnection;
 
     public UpdatePriceController() {
-        // Initialize your database connection here
+
         dbConnection = new DataBaseConnectionProxy();
     }
 

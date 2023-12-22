@@ -18,11 +18,34 @@
 
 .text-field {
     -fx-background-color: #fff;
-    -fx-border-color: #ccc;
+    -fx-border-color: #3b332a; /* Updated border color */
     -fx-border-radius: 0;
 }
 
 .list-view {
     -fx-background-color: #fff;
     -fx-border-color: #ccc;
+}
+
+/* Additional CSS styles based on your FXML layout */
+
+/* VBox background color */
+#signUpBox {
+    -fx-background-color: #dbb481;
+}
+
+/* Label text color */
+.label {
+    -fx-text-fill: #392828;
+}
+
+/* ComboBox and Button background color */
+.combo-box, .button {
+    -fx-background-color: #c29e6e;
+    -fx-border-color: #3b332a; /* Matching the border color as in FXML */
+}
+
+/* Label for error messages (red text) */
+#error-label {
+    -fx-text-fill: red;
 }

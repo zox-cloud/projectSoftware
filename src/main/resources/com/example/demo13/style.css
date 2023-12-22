@@ -1,33 +1,51 @@
-.root {
-    -fx-font-family: 'Arial';
-    -fx-padding: 20px;
+
+.header-label {
+    font-size: 20px;
+    font-family: 'Helvetica', sans-serif;
+    color: #333;
 }
 
-.label-header {
-    -fx-font-size: 24px;
-    -fx-text-fill: #2c3e50;
-}
 
 .button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
+    -fx-background-color: #4a4a4a; /* Dark gray background */
+    -fx-text-fill: #fff; /* White text */
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
 }
 
 .button:hover {
-    -fx-background-color: #2980b9;
+    -fx-background-color: #616161; /* Lighter gray on hover */
 }
+
+
+.text-field {
+    -fx-background-color: #fff;
+    -fx-border-color: #3b332a; /* Dark brown border */
+    -fx-border-radius: 0;
+}
+
 
 .list-view {
-    -fx-background-color: #ecf0f1;
-    -fx-border-color: #bdc3c7;
+    -fx-background-color: #fff; /* White background */
+    -fx-border-color: #ccc; /* Light gray border */
 }
 
-#contentArea {
-    -fx-background-color: #bdc3c7;
-}
 
 #adminPanel {
-    -fx-background-color: #ecf0f1;
+    -fx-background-color: #dbb481; /* Light brown background */
+}
+
+
+.label {
+    -fx-text-fill: #392828; /* Dark brown text */
+}
+
+.button {
+    -fx-background-color: #c29e6e; /* Light brown background */
+    -fx-border-color: #3b332a; /* Dark brown border */
+}
+
+#error-label {
+    -fx-text-fill: red;
 }

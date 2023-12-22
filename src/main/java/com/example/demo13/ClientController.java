@@ -380,10 +380,10 @@ public class ClientController {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp.fxml"));
-            Scene scene = new Scene(loader.load() , 400 , 400); // Update the path to your login FXML file
+            Scene scene = new Scene(loader.load() , 400 , 400);
 
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();// signUpBox is the VBox id from your SignUp.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
 
 
@@ -404,12 +404,11 @@ public class ClientController {
     }
 
     private String validateAndGetAddress() {
-        // Basic validation - make sure fields are not empty
+
         if (streetAddressField.getText().isEmpty() || cityField.getText().isEmpty() || postalCodeField.getText().isEmpty() || countryField.getText().isEmpty()) {
             return null;
         }
 
-        // Construct the address string
         return streetAddressField.getText() + ", " + cityField.getText() + ", " + postalCodeField.getText() + ", " + countryField.getText();
     }
 }

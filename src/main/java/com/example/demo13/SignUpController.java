@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class SignUpController {
 
@@ -68,30 +65,24 @@ public class SignUpController {
             dbConnection.addUser(user_name, password, accountType);
             statusLabel.setText("Registration successful. Please log in.");
 
-
-
-            // Perform your registration logic here
-            // For example: dbConnection.addUser(username, password, accountType);
             statusLabel.setText("Registration successful. Please log in.");
         } catch (Exception e) {
             statusLabel.setText("Registration failed: " + e.getMessage());
         }
     }
-    private boolean checkUserExists(String user_name) throws SQLException {
-        return dbConnection.checkUserExists(user_name);
-    }
+
 
 
 
     @FXML
     protected void handleSwitchToLogin(ActionEvent event) {
         try {
-            // Change "Login.fxml" to the path of your login page FXML file
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 
             Scene loginScene = new Scene(loader.load() , 400 , 400);
 
-            // Get the stage from the event source
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(loginScene);
             stage.show();
@@ -100,5 +91,4 @@ public class SignUpController {
         }
     }
 
-    // Additional methods and logic as required
 }

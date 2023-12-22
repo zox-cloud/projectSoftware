@@ -2,9 +2,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
-
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.ClientController" spacing="10" alignment="TOP_CENTER">
-    <Label text="Bakery Shop - Client Area" styleClass="header-label"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo13.ClientController"
+      spacing="10" alignment="TOP_CENTER"
+      stylesheets="@client.css">
 
     <!-- Section for product ID input and add to basket button -->
     <HBox spacing="10" alignment="CENTER">

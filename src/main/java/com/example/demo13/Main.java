@@ -267,6 +267,10 @@ public class Main{
 
 // TODO: 16.12.2023 Proxy pattern
 
+
+
+
+
 interface IDataBaseConnection{
     void addUser(String name , String  password , String account_type) throws SQLException;
     String checkUser(String name , String password) throws SQLException;
@@ -285,7 +289,7 @@ interface IDataBaseConnection{
 // TODO: 15.12.2023 Single
 
 
-class DatabaseConnection implements IDataBaseConnection{
+class   DatabaseConnection implements IDataBaseConnection{
     private static DatabaseConnection instance;
     private final Connection connection;
     private DatabaseConnection(){
@@ -302,9 +306,7 @@ class DatabaseConnection implements IDataBaseConnection{
         return instance;
     }
 
-    public Connection getconnection(){
-        return connection;
-    }
+
 
 
     // TODO: 15.12.2023  adding user to db

@@ -9,15 +9,26 @@
         <ListView fx:id="productsListView" styleClass="list-view"/>
     </VBox>
     <Label text="Admin Panel" style="-fx-font-size: 20px;" />
-    <Button text="Add New Product" onAction="#handleAddNewProduct"/>
-    <Button text="Update Product Price" onAction="#handleUpdateProductPrice"/>
-    <Button text="Delete Product" onAction="#handleDeleteProduct"/>
-    <Button text="View Users" onAction="#handleViewUsers"/>
-    <Button text="View Products" onAction="#handleViewProducts"/>
-    <Button text="Logout" onAction="#handleLogout"/>
 
+    <!-- New horizontal box for left-aligned buttons -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Add New Product" onAction="#handleAddNewProduct"/>
+        <Button text="Update Product Price" onAction="#handleUpdateProductPrice"/>
+        <Button text="Delete Product" onAction="#handleDeleteProduct"/>
+    </HBox>
 
-<!--    <StackPane fx:id="contentArea">-->
-<!--       -->
-<!--    </StackPane>-->
+    <!-- Middle content can be another VBox or a placeholder -->
+    <VBox spacing="10" alignment="CENTER">
+        <!-- Place your middle content here -->
+    </VBox>
+
+    <!-- New horizontal box for right-aligned buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="View Users" onAction="#handleViewUsers"/>
+        <Button text="View Products" onAction="#handleViewProducts"/>
+        <Button text="Logout" onAction="#handleLogout"/>
+    </HBox>
+
+    <StackPane fx:id="contentArea">
+    </StackPane>
 </VBox>

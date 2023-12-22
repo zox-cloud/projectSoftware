@@ -1,7 +1,6 @@
 package com.example.demo13;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,11 +30,12 @@ public class AdminController {
     @FXML
     private StackPane contentArea;
 
-    private IDataBaseConnection dbConnection;
+    private final  IDataBaseConnection dbConnection;
     @FXML
     private void initialize() {
 
         adminPanel.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
 
         productsListView.setCellFactory(lv -> new ListCell<Product>() {
@@ -182,7 +182,7 @@ public class AdminController {
                 if (empty || client == null) {
                     setText(null);
                 } else {
-                    // Customize how the client data is displayed
+
                     setText("Client Name: " + client.getName());
                 }
             }
@@ -220,11 +220,11 @@ public class AdminController {
             stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace(); // Log the exception, or show an error dialog
+            e.printStackTrace();
         }
     }
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
